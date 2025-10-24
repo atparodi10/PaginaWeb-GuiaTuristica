@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Descubre la Gastronomía de Tokyo</title>
+    <meta name="description" content="Explora la vibrante gastronomía de Tokyo: sushi, ramen, tempura y más."/>
+
+    <!-- Fuente moderna: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"/>
+
+    <!-- CSS embebido -->
+    <style>
+        /* ====================== PALETA DE COLORES ====================== */
+        /* Inspirada en la cultura japonesa: rojo ume, dorado washi, negro tinta, blanco arroz */
+        :root {
+            --color-primary: #D32F2F;     /* Rojo japonés intenso */
+            --color-secondary: #FFD700;   /* Dorado elegante */
+            --color-dark: #1A1A1A;        /* Negro profundo */
+            --color-light: #FFFFFF;       /* Blanco puro */
+            --color-bg: #0F0F0F;          /* Fondo oscuro futurista */
+            --color-accent: #FF5252;      /* Rojo neón para hover */
+        }
+
+        /* ====================== RESET Y TIPOGRAFÍA ====================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ====================== NAVBAR ====================== */
+        /* <!-- Navbar --> */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(211, 47, 47, 0.95), rgba(26, 26, 26, 0.95));
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar.scrolled {
+            padding: 0.75rem 5%;
+            background: linear-gradient(135deg, rgba(211, 47, 47, 1), rgba(26, 26, 26, 1));
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-secondary);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--color-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--color-light);
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background-color: var(--color-secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-secondary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Efecto brillo al pasar el mouse sobre el navbar */
+        .navbar:hover {
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* ====================== HERO SECTION ====================== */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(15, 15, 15, 0.7), rgba(15, 15, 15, 0.8)),
+                        url('https://images.pexels.com/photos/31697573/pexels-photo-31697573.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=2000&q=80') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, rgba(211, 47, 47, 0.1), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            color: var(--color-light);
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-text {
+            font-size: 1.4rem;
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(20px);
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Animación de entrada */
+        .animate-in {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ====================== SECCIÓN GASTRONOMÍA ====================== */
+        .section {
+            padding: 100px 5%;
+            min-height: 100vh;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--color-secondary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 100px;
+            height: 4px;
+            background: var(--color-primary);
+            display: block;
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Grid de platos japoneses */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .food-card {
+            background: rgba(26, 26, 26, 0.8);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .food-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .food-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(211, 47, 47, 0.3);
+        }
+
+        .food-image {
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .food-card:hover .food-image {
+            transform: scale(1.08);
+        }
+
+        .food-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .food-name {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--color-secondary);
+            margin-bottom: 0.8rem;
+        }
+
+        .food-desc {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* ====================== RESPONSIVE ====================== */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            .hero-text {
+                font-size: 1.2rem;
+            }
+            .nav-links {
+                gap: 1.5rem;
+            }
+            .nav-links a {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 1rem 3%;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Desplazamiento suave */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====================== NAVBAR ====================== -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">Tokyo<span>Gastro</span></div>
+        <div class="nav-links">
+            <a href="#" class="scroll-link" data-target="gastronomia">Sushi</a>
+            <a href="#" class="scroll-link" data-target="gastronomia">Ramen</a>
+            <a href="#" class="scroll-link" data-target="gastronomia">Tempura</a>
+            <a href="#" class="scroll-link" data-target="gastronomia">Wagyu</a>
+        </div>
+    </nav>
+
+    <!-- ====================== HERO SECTION ====================== -->
+    <section class="hero">
+        <h1 class="hero-title" id="main-title">Descubre Tokyo</h1>
+        <p class="hero-text" id="main-text">
+            La capital de Japón no solo es una metrópoli futurista, sino el epicentro mundial de la alta gastronomía. 
+            Desde estrellas Michelin en callejones ocultos hasta izakayas tradicionales, Tokyo es un paraíso para los sentidos.
+        </p>
+    </section>
+
+    <!-- ====================== SECCIÓN GASTRONOMÍA ====================== -->
+    <section class="section" id="gastronomia">
+        <h2 class="section-title">Gastronomía Japonesa</h2>
+        
+        <div class="food-grid">
+            <!-- Plato 1: Sushi -->
+            <div class="food-card">
+                <img src="https://images.pexels.com/photos/33712134/pexels-photo-33712134.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&q=80" alt="Nigiri Sushi" class="food-image">
+                <div class="food-info">
+                    <h3 class="food-name">Sushi Nigiri</h3>
+                    <p class="food-desc">
+                        Arroz avinagrado con láminas de pescado fresco. El arte del equilibrio perfecto entre textura y sabor.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Plato 2: Ramen -->
+            <div class="food-card">
+                <img src="https://images.pexels.com/photos/29989995/pexels-photo-29989995.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&q=80" alt="Ramen Tonkotsu" class="food-image">
+                <div class="food-info">
+                    <h3 class="food-name">Ramen Tonkotsu</h3>
+                    <p class="food-desc">
+                        Caldo cremoso de huesos de cerdo cocinado durante 18 horas, con fideos artesanales y chashu.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Plato 3: Tempura -->
+            <div class="food-card">
+                <img src="https://images.pexels.com/photos/32967533/pexels-photo-32967533.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&q=80" alt="Tempura de langostinos" class="food-image">
+                <div class="food-info">
+                    <h3 class="food-name">Tempura</h3>
+                    <p class="food-desc">
+                        Mariscos y vegetales rebozados en una masa ligera, fritos al punto perfecto de crujiente.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Plato 4: Wagyu -->
+            <div class="food-card">
+                <img src="https://images.pexels.com/photos/31406822/pexels-photo-31406822.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&q=80" alt="Wagyu A5" class="food-image">
+                <div class="food-info">
+                    <h3 class="food-name">Wagyu A5</h3>
+                    <p class="food-desc">
+                        Carne de res marmoleada de Kobe, fundente como mantequilla. La joya de la cocina japonesa.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Plato 5: Sashimi -->
+            <div class="food-card">
+                <img src="https://images.pexels.com/photos/28701150/pexels-photo-28701150.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&q=80" alt="Sashimi variado" class="food-image">
+                <div class="food-info">
+                    <h3 class="food-name">Sashimi</h3>
+                    <p class="food-desc">
+                        Cortes finos de pescado crudo de máxima frescura. Pureza en cada bocado.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Plato 6: Yakitori (reemplazo) -->
+            <div class="food-card">
+                <img src="https://images.pexels.com/photos/30682902/pexels-photo-30682902.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&q=80" alt="Yakitori skewers" class="food-image">
+                <div class="food-info">
+                    <h3 class="food-name">Yakitori</h3>
+                    <p class="food-desc">
+                        Brochetas de pollo a la parrilla con salsa tare. Un clásico de la comida callejera japonesa.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================== JAVASCRIPT ====================== -->
+    <script>
+        // ====================== ANIMACIÓN DE ENTRADA ======================
+        document.addEventListener('DOMContentLoaded', () => {
+            const title = document.getElementById('main-title');
+            const text = document.getElementById('main-text');
+
+            setTimeout(() => {
+                title.classList.add('animate-in');
+            }, 300);
+
+            setTimeout(() => {
+                text.classList.add('animate-in');
+            }, 600);
+        });
+
+        // ====================== EFECTO SCROLL SUAVE EN NAVBAR ======================
+        document.querySelectorAll('.scroll-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector('#gastronomia');
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ====================== CAMBIO DE NAVBAR AL HACER SCROLL ======================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ====================== ANIMACIÓN DE TARJETAS AL ENTRAR EN VISTA ======================
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Solo una vez
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.food-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
