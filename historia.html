@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Historia de Tokyo — Descubre Tokyo</title>
+
+    <!--
+        Fuente: mantener tipografías similares al resto del sitio.
+        Aquí usamos Montserrat para interfaz y Merriweather para encabezados.
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/historia.css">
+
+    <style>
+        /* ===========================
+             Reset y variables de tema
+             =========================== */
+        
+
+        /* ===========================
+             Clases utilitarias para animación (JS añadirá .visible)
+             =========================== */
+    </style>
+</head>
+<body>
+    <!-- ===========================
+             NAVBAR: Mantener mismo diseño y enlaces que en index.html
+             =========================== -->
+    <header class="navbar" role="banner">
+        <div class="nav-inner">
+            <div class="brand" aria-label="Descubre Tokyo">
+                <span class="dot" aria-hidden="true"></span>
+                <span>Descubre Tokyo</span>
+            </div>
+
+            <!-- Enlaces: usar href="#" o enlaces reales luego -->
+            <nav class="nav-links" aria-label="Navegación principal">
+                <a href="index.html" data-target="">Inicio</a>
+                <a href="#historia" data-target="historia">Historia</a>
+                <a href="gastronomia.html" data-target="galeria">Galería</a>
+                <a href="lugares.html" data-target="lugares">Lugares turísticos</a>
+                <a href="mapa.html" data-target="mapa">Mapa</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Encabezado principal de la página -->
+        <section class="page-header" id="historia">
+            <!-- Título con animación de entrada -->
+            <h1 id="page-title">Historia de Tokyo</h1>
+            <p class="lead">
+                Desde su origen como Edo, capital del shogunato Tokugawa, hasta su transformación en una metrópoli global, Tokyo ha sido escenario de profundas
+                transformaciones políticas, culturales y tecnológicas. Aquí repasamos sus etapas más significativas.
+            </p>
+        </section>
+
+        <!-- Sección con varios bloques narrativos intercalados con imágenes -->
+        <section class="story" aria-labelledby="page-title">
+            <!-- BLOQUE 1: Antiguo Edo -->
+            <article class="block">
+                <div class="block-content">
+                    <h2>Antiguo Edo (época samurái)</h2>
+                    <p>
+                        A partir de comienzos del siglo XVII, Edo se convirtió en el centro del poder bajo el shogunato Tokugawa. Aunque el Emperador permanecía en Kyōto,
+                        Edo fue la capital política y creció rápidamente en población y comercio.
+                    </p>
+                    <p>
+                        La ciudad desarrolló una intensa vida urbana con barrios de artesanos, teatros y mercados. La presencia samurái marcó la organización social y la
+                        arquitectura defensiva, mientras que la cultura popular —como el teatro kabuki y el ukiyo-e— floreció en este periodo.
+                    </p>
+                </div>
+
+                <!-- Imagen relacionada con Antiguo Edo -->
+                <figure class="img-wrap" aria-hidden="false">
+                    <img src="images/edo.jpg" alt="Recreación histórica de Edo y samuráis" loading="lazy">
+                </figure>
+            </article>
+
+            <!-- BLOQUE 2: Reconstrucción post-Segunda Guerra Mundial -->
+            <article class="block">
+                <!-- Imagen a la izquierda para variar el diseño -->
+                <figure class="img-wrap" aria-hidden="false">
+                    <img src="images/reconstruccion.jpg" alt="Reconstrucción de Tokyo tras la guerra" loading="lazy">
+                </figure>
+
+                <div class="block-content">
+                    <h2>Reconstrucción tras la Segunda Guerra Mundial</h2>
+                    <p>
+                        Tras los devastadores bombardeos de 1945 y años de escasez, Tokyo inició una rápida reconstrucción durante las décadas de 1950 y 1960.
+                        La ciudad se reordenó impulsada por inversiones, industrialización y planificación urbana.
+                    </p>
+                    <p>
+                        Este período sentó las bases del "milagro económico" japonés: nuevas infraestructuras, redes de transporte modernas y la llegada de tecnologías
+                        que transformaron la vida urbana y la industria cultural.
+                    </p>
+                </div>
+            </article>
+
+            <!-- BLOQUE 3: Tokyo moderno -->
+            <article class="block">
+                <div class="block-content">
+                    <h2>Tokyo moderno</h2>
+                    <p>
+                        Hoy Tokyo es una megalópolis global donde conviven rascacielos, barrios históricos y centros tecnológicos. Distritos como Shinjuku y Shibuya
+                        simbolizan su dinamismo comercial y cultural, con una escena gastronómica y creativa de alcance mundial.
+                    </p>
+                    <p>
+                        Eventos internacionales —entre ellos las Olimpíadas y las exposiciones— junto con una extensa red de transporte y una economía basada en la
+                        innovación, han consolidado a Tokyo como un referente urbano del siglo XXI.
+                    </p>
+                </div>
+
+                <figure class="img-wrap" aria-hidden="false">
+                    <img src="images/moderno.jpg" alt="Tokyo moderno: rascacielos y luces de neón en Shibuya" loading="lazy">
+                </figure>
+            </article>
+        </section>
+
+        <!-- Pie de página sencillo -->
+        <footer>
+            © 2025 Descubre Tokyo
+        </footer>
+    </main>
+
+    <!-- ===========================
+             JavaScript embebido:
+             - animaciones de entrada (titulo + imágenes)
+             - desplazamiento suave en los enlaces del navbar
+             - añadir clase .visible para activar transiciones CSS
+             =========================== -->
+    <script>
+        // ===========================
+        // Esperar a que el DOM esté listo
+        // ===========================
+        document.addEventListener('DOMContentLoaded', function () {
+            // Animación del título: añadir clase .visible tras un pequeño retraso
+            var title = document.getElementById('page-title');
+            if (title) {
+                setTimeout(function(){
+                    title.classList.add('visible');
+                }, 160);
+            }
+
+            // Seleccionar todas las imágenes (envoltorio .img-wrap) para animación de entrada
+            var imgWraps = document.querySelectorAll('.img-wrap');
+            // Añadir visibilidad con un pequeño retraso escalonado (stagger)
+            imgWraps.forEach(function(el, idx){
+                setTimeout(function(){
+                    el.classList.add('visible');
+                }, 220 + idx * 140);
+            });
+
+            // ===========================
+            // Desplazamiento suave personalizado para los enlaces del navbar
+            // ===========================
+            var navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(function(link){
+                link.addEventListener('click', function(e){
+                    var href = link.getAttribute('href') || '';
+                    // Si es un hash local (por ejemplo #historia), hacer scroll suave al elemento
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        var targetId = href.slice(1);
+                        if (!targetId) {
+                            // href="#" or empty: subir al tope (body)
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                            return;
+                        }
+                        var targetEl = document.getElementById(targetId);
+                        if (targetEl) {
+                            // calcular desplazamiento considerando la altura del navbar sticky
+                            var navHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+                            var top = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+                            window.scrollTo({ top: top, behavior: 'smooth' });
+                        } else {
+                            // si no existe (enlaces a otras páginas), permitir comportamiento por defecto
+                            // (si fueran enlaces reales, no prevenir)
+                        }
+                    }
+                    // si no es hash local, dejar que el enlace se comporte normalmente
+                });
+            });
+
+
+            // Opcional: efecto extra de foco accesible al pasar por teclado (añadir sombra)
+            imgWraps.forEach(function(w){
+                w.tabIndex = 0;
+                w.addEventListener('focus', function(){ w.classList.add('visible'); });
+                w.addEventListener('blur', function(){ /* mantener visible */ });
+            });
+        });
+    </script>
+</body>
+</html>

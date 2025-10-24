@@ -1,0 +1,194 @@
+:root{
+            --bg:#f7f4f2;              /* fondo claro, neutral */
+            --text:#111111;
+            --accent:#b71c1c;          /* rojo principal */
+            --accent-dark:#7a0f0f;
+            --gold:#d4af37;
+            --nav-height:64px;
+            --max-width:1100px;
+            --shadow: 0 6px 18px rgba(17,17,17,0.12);
+            --card-shadow: 0 10px 30px rgba(11,11,11,0.10);
+            --radius:12px;
+        }
+
+        /* ===========================
+             Básicos
+             =========================== */
+        html { box-sizing: border-box; scroll-behavior: smooth; }
+        *,*::before,*::after{ box-sizing: inherit; }
+        body{
+            margin:0;
+            font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background:var(--bg);
+            color:var(--text);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            line-height:1.65;
+        }
+
+        a{ color:var(--accent); text-decoration:none; }
+        img{ max-width:100%; height:auto; display:block; }
+
+        /* ===========================
+             Navbar (mismo diseño que en index)
+             =========================== */
+        .navbar{
+            position:sticky; top:0; z-index:40;
+            height:var(--nav-height);
+            display:flex; align-items:center; justify-content:center;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dark) 100%);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+            backdrop-filter: blur(6px);
+        }
+        .nav-inner{
+            width:100%;
+            max-width:var(--max-width);
+            display:flex; align-items:center; justify-content:space-between;
+            padding:0 20px;
+        }
+        .brand{
+            color:#fff;
+            font-weight:800;
+            letter-spacing:0.6px;
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+        .brand .dot{
+            width:10px; height:10px; border-radius:50%;
+            background:var(--gold); box-shadow:0 2px 6px rgba(0,0,0,0.2);
+        }
+        .nav-links{
+            display:flex; gap:18px; align-items:center;
+        }
+        .nav-links a{
+            color:rgba(255,255,255,0.95);
+            font-weight:600;
+            padding:8px 12px;
+            border-radius:8px;
+            transition:all 180ms ease;
+        }
+        .nav-links a:hover{
+            transform:translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+            background:rgba(255,255,255,0.04);
+        }
+
+        /* ===========================
+             Contenido principal
+             =========================== */
+        main{
+            max-width:var(--max-width);
+            margin:28px auto;
+            padding: 20px;
+        }
+        /* dejar espacio para navbar si es fijo */
+        .page-header{
+            margin-top: 6px;
+            padding:28px;
+            border-radius:14px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.85));
+            box-shadow: var(--shadow);
+            display:flex; flex-direction:column; gap:12px;
+            align-items:flex-start;
+        }
+
+        h1{
+            margin:0;
+            font-family:"Merriweather", serif;
+            font-size:2.4rem;
+            color:var(--accent-dark);
+            letter-spacing:0.2px;
+            line-height:1.05;
+            /* animación inicial (ver JS) */
+            opacity:0; transform:translateY(16px);
+            transition:opacity 700ms ease, transform 700ms cubic-bezier(.2,.9,.2,1);
+        }
+        h1.visible{ opacity:1; transform:none; }
+
+        .lead{
+            margin:0;
+            color: #333;
+            font-weight:300;
+            max-width:80ch;
+        }
+
+        /* Sección de historia */
+        .story{
+            margin-top:20px;
+            display:flex;
+            flex-direction:column;
+            gap:26px;
+        }
+
+        .block{
+            display:grid;
+            grid-template-columns: 1fr 380px;
+            gap:20px;
+            align-items:start;
+            background:rgba(255,255,255,0.6);
+            padding:18px;
+            border-radius:12px;
+            box-shadow: var(--card-shadow);
+        }
+        .block:nth-child(even){
+            grid-template-columns:380px 1fr;
+        }
+        .block-content h2{
+            margin:0 0 10px 0;
+            font-family:"Merriweather", serif;
+            font-size:1.25rem;
+            color:var(--accent);
+        }
+        .block p{ margin:0 0 10px 0; color:#222; }
+
+        .img-wrap {
+            opacity: 0; /* Inicialmente oculto */
+            transform: translateY(18px);
+        }
+        .img-wrap.visible {
+        opacity: 1; /* Visible cuando se añade la clase */
+        transform: none;
+        transition-delay: 220ms;
+        }
+        .img-wrap img{
+            display:block;
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            border-radius:12px;
+            transition: transform 420ms ease, filter 220ms ease;
+        }
+        /* brillo / sombra al hover */
+        .img-wrap:hover{
+            transform:translateY(-6px);
+            box-shadow: 0 22px 48px rgba(11,11,11,0.18);
+        }
+        .img-wrap:hover img{
+            filter:brightness(1.06) saturate(1.05);
+            transform:scale(1.02);
+        }
+
+        /* Pie de página */
+        footer{
+            margin-top:28px;
+            padding:18px;
+            text-align:center;
+            color:#333;
+            font-weight:500;
+        }
+
+        /* ===========================
+             Responsividad
+             =========================== */
+        @media (max-width:900px){
+            .block{ grid-template-columns:1fr; }
+            .block:nth-child(even){ grid-template-columns:1fr; }
+            .nav-inner{ padding:0 14px; }
+            h1{ font-size:1.8rem; }
+        }
+        @media (max-width:480px){
+            .nav-links{ display:none; } /* simplificar el navbar en móviles (igual que index puede hacerlo) */
+            .page-header{ padding:16px; }
+            main{ padding:12px; margin:12px auto; }
+        }
