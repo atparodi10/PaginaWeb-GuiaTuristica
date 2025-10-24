@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre Tokyo — Guía Informativa</title>
+
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header id="siteHeader">
+        <div class="container nav-row">
+            <div class="brand">
+                <h1>Tokyo</h1>
+                <div class="sub">Guía rápida</div>
+            </div>
+
+            <nav>
+                <a href="#inicio">Inicio</a>
+                <a href="historia.html">Historia</a>
+                <a href="gastronomia.html">Gastronomía</a>
+                <a href="lugares.html">Lugares turísticos</a>
+                <a href="mapa.html">Mapa</a>
+            </nav>
+
+            <!-- Botón hamburguesa móvil -->
+            <button class="menu-toggle" aria-label="Mostrar menú">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero / Portada -->
+    <main>
+        <section class="hero" id="inicio">
+            <div class="hero-inner">
+                <span class="kicker reveal">Descubre</span>
+                <h2 class="title reveal" id="heroTitle" tabindex="-1">Descubre Tokyo</h2>
+                <p class="lead reveal">Una ciudad donde la tradición se entrelaza con la innovación. Explora barrios vibrantes, saborea la gastronomía local y déjate sorprender por paisajes urbanos que brillan noche tras noche.</p>
+            </div>
+        </section>
+
+        <footer>
+            <small>&copy; 2025 — Guía de Tokyo</small>
+        </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const header = document.getElementById('siteHeader');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('header nav');
+
+        // Animación de entrada
+        window.addEventListener('load', () => {
+            reveals.forEach((el, idx) => {
+                setTimeout(() => el.classList.add('show'), 120 * idx);
+            });
+            document.getElementById('heroTitle')?.focus();
+        });
+
+        // Smooth scroll SOLO para hash interno (#inicio)
+        document.querySelectorAll('header nav a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                        const headerOffset = header.offsetHeight;
+                        const elementPosition = targetEl.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                    // Cerrar menú móvil si estaba abierto
+                    if(nav.classList.contains('open')) nav.classList.remove('open');
+                });
+            }
+        });
+
+        // Glow al pasar mouse
+        header.addEventListener('mouseenter', ()=> header.classList.add('glow'));
+        header.addEventListener('mouseleave', ()=> header.classList.remove('glow'));
+
+        // Menú hamburguesa móvil
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

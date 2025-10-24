@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre Tokyo — Lugares Turísticos</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --dark-bg: #0a0a1a;
+            --primary-bg: #1a1a3a;
+            --primary-neon: #00f0ff;
+            --secondary-neon: #ff00ff;
+            --light-text: #f0f0f0;
+            --dark-overlay: rgba(0, 0, 0, 0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--dark-bg); color: var(--light-text); line-height: 1.6; }
+
+        h1,h2,h3 { font-weight:700; }
+
+        section { padding: 100px 5%; min-height: 60vh; }
+        section h2 { text-align:center; font-size:2.5rem; color:var(--primary-neon); text-shadow:0 0 10px var(--primary-neon); margin-bottom:2rem; }
+
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(10,10,30,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid var(--primary-neon);
+        }
+
+        nav { display:flex; justify-content:space-around; align-items:center; padding:1rem 5%; flex-wrap:wrap; }
+        nav ul { display:flex; list-style:none; gap:2rem; flex-wrap:wrap; justify-content:center; }
+        nav a { color:var(--light-text); text-decoration:none; font-size:1.1rem; font-weight:500; transition: color .3s, text-shadow .3s; }
+        nav a:hover, nav a.active { color:var(--secondary-neon); text-shadow:0 0 20px var(--secondary-neon); }
+
+        .grid-container { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:2rem; }
+        .lugar-card { background:var(--primary-bg); border-radius:10px; overflow:hidden; box-shadow:0 5px 15px rgba(0,240,255,0.2); transition: transform .3s, box-shadow .3s, opacity .8s ease-out, transform .8s ease-out; opacity:0; transform:translateY(30px); }
+        .lugar-card.visible { opacity:1; transform:translateY(0); }
+        .lugar-card:hover { transform:translateY(-10px) scale(1.02); box-shadow:0 10px 30px rgba(0,240,255,0.5); }
+        .lugar-card img { width:100%; height:200px; object-fit:cover; display:block; }
+        .lugar-card-content { padding:1.5rem; }
+        .lugar-card-content h3 { color:var(--secondary-neon); margin-bottom:.5rem; font-size:1.5rem; }
+        .lugar-card-content p { font-size:.95rem; font-weight:300; }
+
+        footer { text-align:center; padding:2rem; background-color:#050510; border-top:1px solid var(--primary-neon); margin-top:2rem; }
+
+        @media (max-width:768px) {
+            nav { justify-content:center; }
+            nav ul { gap:1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="historia.html">Historia</a></li>
+            <li><a href="gastronomia.html">Gastronomía</a></li>
+            <li><a href="lugares.html" class="active">Lugares Turísticos</a></li>
+            <li><a href="mapa.html">Mapa</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main role="main">
+
+    <section id="lugares">
+        <h2>Lugares Imperdibles</h2>
+        
+        <div class="grid-container">
+            <div class="lugar-card">
+                <img src="https://tse2.mm.bing.net/th/id/OIP.ZSM_8rUSHvgq4ce8ZJg2awHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Templo Senso-ji en Asakusa" loading="lazy">
+                <div class="lugar-card-content">
+                    <h3>Templo Senso-ji (Asakusa)</h3>
+                    <p>El templo budista más antiguo de Tokyo. Pasea por la calle Nakamise-dori, llena de tiendas tradicionales, antes de llegar al impresionante salón principal.</p>
+                </div>
+            </div>
+
+            <div class="lugar-card">
+                <img src="https://guias.nautaliaviajes.com/wp-content/uploads/2024/06/cruce-shibuya-noche.jpg" alt="Cruce de Shibuya de noche" loading="lazy">
+                <div class="lugar-card-content">
+                    <h3>Cruce de Shibuya</h3>
+                    <p>El cruce peatonal más transitado del mundo. Un espectáculo hipnótico de movimiento y luces de neón, especialmente de noche.</p>
+                </div>
+            </div>
+
+            <div class="lugar-card">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.sc-jzkI8mTB_7nEQOsgHxgHaLS?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Tokyo Skytree" loading="lazy">
+                <div class="lugar-card-content">
+                    <h3>Tokyo Skytree</h3>
+                    <p>La torre de comunicaciones más alta del mundo. Sube a sus observatorios para obtener vistas panorámicas inigualables de la vasta metrópolis.</p>
+                </div>
+            </div>
+
+            <div class="lugar-card">
+                <img src="https://japonismo.com/wp-content/uploads/2014/05/jardin-nacional-shinjuku-gyoen-tokio.jpg" alt="Parque Shinjuku Gyoen en primavera" loading="lazy">
+                <div class="lugar-card-content">
+                    <h3>Parque Shinjuku Gyoen</h3>
+                    <p>Un oasis de calma en medio del caos. Este parque combina jardines de estilo francés, inglés y japonés tradicional. Perfecto para ver los cerezos en flor.</p>
+                </div>
+            </div>
+
+            <div class="lugar-card">
+                <img src="https://media.todosobrejapon.es/files/2024/03/como-llegar-santuario-meiji-jingu.jpg" alt="Santuario Meiji Jingu" loading="lazy">
+                <div class="lugar-card-content">
+                    <h3>Santuario Meiji Jingu</h3>
+                    <p>Dedicado al Emperador Meiji y la Emperatriz Shoken. Un santuario sintoísta rodeado por un denso bosque, que ofrece un escape espiritual.</p>
+                </div>
+            </div>
+
+            <div class="lugar-card">
+                <img src="https://livingnomads.com/wp-content/uploads/2023/01/10/akihabara-1-1024x751-1.webp" alt="Calles de Akihabara de noche" loading="lazy">
+                <div class="lugar-card-content">
+                    <h3>Akihabara (Electric Town)</h3>
+                    <p>El epicentro de la cultura otaku. Lleno de tiendas de electrónica, manga, anime y videojuegos, iluminado por innumerables carteles de neón.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer role="contentinfo">
+    <p>&copy; 2025 Descubre Tokyo. Página de demostración.</p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    // Animación de aparición de tarjetas al hacer scroll
+    const cards = document.querySelectorAll('.lugar-card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    cards.forEach(card => observer.observe(card));
+
+    // Navbar efecto activo según scroll
+    const sections = document.querySelectorAll('main section');
+    const navLinks = document.querySelectorAll('nav a');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const id = entry.target.id;
+            const link = document.querySelector(`nav a[href="${id}.html"], nav a[href="#${id}"]`);
+            if(entry.isIntersecting && link){
+                navLinks.forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+            }
+        });
+    }, { threshold: 0.5 });
+
+    sections.forEach(section => sectionObserver.observe(section));
+
+    // Desplazamiento suave para links locales
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href') || '';
+            if(href.startsWith('#')){
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if(target){
+                    const offset = target.getBoundingClientRect().top + window.pageYOffset - (document.querySelector('header')?.offsetHeight || 0);
+                    window.scrollTo({ top: offset, behavior:'smooth' });
+                }
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
