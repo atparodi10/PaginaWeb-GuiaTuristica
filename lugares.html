@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre Tokyo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ------------------------- */
+        /* --- Configuración Global y Paleta --- */
+        /* ------------------------- */
+
+        :root {
+            /* Paleta de colores Neón/Futurista */
+            --dark-bg: #0a0a1a;        /* Fondo principal (Azul muy oscuro) */
+            --primary-bg: #1a1a3a;     /* Fondo secundario (Azul oscuro) */
+            --primary-neon: #00f0ff;   /* Acento principal (Cian Neón) */
+            --secondary-neon: #ff00ff; /* Acento secundario (Magenta Neón) */
+            --light-text: #f0f0f0;     /* Texto principal */
+            --dark-overlay: rgba(0, 0, 0, 0.6); /* Superposición para la imagen hero */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            /* Habilitar desplazamiento suave (CSS) */
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+
+        section {
+            /* Espaciado para compensar el navbar fijo */
+            padding: 100px 5%;
+            min-height: 60vh; /* Altura mínima para que los enlaces funcionen */
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-neon);
+            text-shadow: 0 0 10px var(--primary-neon);
+            margin-bottom: 2rem;
+        }
+
+        /* ------------------------- */
+        /* --- Navbar (Encabezado) --- */
+        /* ------------------------- */
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            /* Fondo oscuro semi-transparente con efecto blur */
+            background: rgba(10, 10, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--primary-neon);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 1rem 5%;
+            flex-wrap: wrap; /* Para responsividad simple */
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap; /* Asegura que los enlaces se reorganicen en pantallas pequeñas */
+            justify-content: center;
+        }
+
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        /* Efecto hover en enlaces del navbar */
+        nav a:hover {
+            color: var(--primary-neon);
+            text-shadow: 0 0 15px var(--primary-neon);
+        }
+
+        /* ------------------------- */
+        /* --- Sección Hero (Inicio) --- */
+        /* ------------------------- */
+
+        #inicio {
+            height: 100vh;
+            padding: 0; /* Sin padding para ocupar toda la pantalla */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            /* Imagen de fondo (reemplazar con URL de Unsplash o similar) */
+            background-image: linear-gradient(var(--dark-overlay), var(--dark-overlay)), url('https://source.unsplash.com/1920x1080/?tokyo-skyline-night');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Efecto Parallax simple */
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            color: var(--light-text);
+            /* Sombra de texto Neón (Magenta) */
+            text-shadow: 0 0 20px var(--secondary-neon), 0 0 10px var(--secondary-neon);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            font-weight: 300;
+        }
+
+        /* --- Animaciones de entrada (JS las activará) --- */
+        .hero-content h1, .hero-content p {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        
+        .hero-content h1.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .hero-content p.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.3s; /* Retraso para el párrafo */
+        }
+
+
+        /* ------------------------- */
+        /* --- Lugares Turísticos --- */
+        /* ------------------------- */
+
+        .grid-container {
+            display: grid;
+            /* Columnas responsivas: se adaptan al espacio, mínimo 300px */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .lugar-card {
+            background: var(--primary-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            /* Sombra Neón (Cian) */
+            box-shadow: 0 5px 15px rgba(0, 240, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .lugar-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 240, 255, 0.4);
+        }
+
+        .lugar-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover; /* Asegura que la imagen cubra el espacio sin deformarse */
+            display: block;
+        }
+
+        .lugar-card-content {
+            padding: 1.5rem;
+        }
+
+        .lugar-card-content h3 {
+            color: var(--secondary-neon); /* Título en Magenta */
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .lugar-card-content p {
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+
+        /* ------------------------- */
+        /* --- Secciones Vacías --- */
+        /* ------------------------- */
+
+        #historia, #galeria, #mapa {
+            background-color: var(--primary-bg); /* Fondo ligeramente diferente */
+        }
+
+        /* ------------------------- */
+        /* --- Footer (Pie de página) --- */
+        /* ------------------------- */
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #050510; /* Aún más oscuro */
+            border-top: 1px solid var(--primary-neon);
+            margin-top: 2rem;
+        }
+
+        /* ------------------------- */
+        /* --- Responsividad --- */
+        /* ------------------------- */
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem; /* Título más pequeño en móviles */
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            nav {
+                justify-content: center; /* Centrar navbar en móviles */
+            }
+
+            nav ul {
+                gap: 1.5rem; /* Menos espacio entre enlaces */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#historia">Historia</a></li>
+                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#lugares">Lugares Turísticos</a></li>
+                <li><a href="#mapa">Mapa</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="inicio">
+            <div class="hero-content">
+                <h1 id="main-title">Descubre Tokyo</h1>
+                <p id="main-text">
+                    La metrópolis donde la tradición ancestral se fusiona con la innovación futurista. 
+                    Explora templos serenos, cruces peatonales icónicos y rascacielos que tocan las nubes.
+                </p>
+            </div>
+        </section>
+
+        <section id="historia">
+            <h2>Nuestra Historia</h2>
+            <p style="text-align: center;">Próximamente... exploraremos el pasado de Edo hasta el Tokyo moderno.</p>
+        </section>
+
+        <section id="galeria">
+            <h2>Galería de Neón</h2>
+            <p style="text-align: center;">Próximamente... una colección de las mejores vistas de la ciudad.</p>
+        </section>
+
+
+        <section id="lugares">
+            <h2>Lugares Imperdibles</h2>
+            
+            <div class="grid-container">
+                <div class="lugar-card">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.ZSM_8rUSHvgq4ce8ZJg2awHaE7?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Templo Senso-ji en Asakusa">
+                    <div class="lugar-card-content">
+                        <h3>Templo Senso-ji (Asakusa)</h3>
+                        <p>El templo budista más antiguo de Tokyo. Pasea por la calle Nakamise-dori, llena de tiendas tradicionales, antes de llegar al impresionante salón principal.</p>
+                    </div>
+                </div>
+
+                <div class="lugar-card">
+                    <img src="https://guias.nautaliaviajes.com/wp-content/uploads/2024/06/cruce-shibuya-noche.jpg" alt="Cruce de Shibuya de noche">
+                    <div class="lugar-card-content">
+                        <h3>Cruce de Shibuya</h3>
+                        <p>El cruce peatonal más transitado del mundo. Un espectáculo hipnótico de movimiento y luces de neón, especialmente de noche.</p>
+                    </div>
+                </div>
+
+                <div class="lugar-card">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.sc-jzkI8mTB_7nEQOsgHxgHaLS?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Tokyo Skytree">
+                    <div class="lugar-card-content">
+                        <h3>Tokyo Skytree</h3>
+                        <p>La torre de comunicaciones más alta del mundo. Sube a sus observatorios para obtener vistas panorámicas inigualables de la vasta metrópolis.</p>
+                    </div>
+                </div>
+
+                <div class="lugar-card">
+                    <img src="https://japonismo.com/wp-content/uploads/2014/05/jardin-nacional-shinjuku-gyoen-tokio.jpg" alt="Parque Shinjuku Gyoen en primavera">
+                    <div class="lugar-card-content">
+                        <h3>Parque Shinjuku Gyoen</h3>
+                        <p>Un oasis de calma en medio del caos. Este parque combina jardines de estilo francés, inglés y japonés tradicional. Perfecto para ver los cerezos en flor.</p>
+                    </div>
+                </div>
+
+                <div class="lugar-card">
+                    <img src="https://media.todosobrejapon.es/files/2024/03/como-llegar-santuario-meiji-jingu.jpg" alt="Santuario Meiji Jingu">
+                    <div class="lugar-card-content">
+                        <h3>Santuario Meiji Jingu</h3>
+                        <p>Dedicado al Emperador Meiji y la Emperatriz Shoken. Un santuario sintoísta rodeado por un denso bosque, que ofrece un escape espiritual.</p>
+                    </div>
+                </div>
+
+                <div class="lugar-card">
+                    <img src="https://livingnomads.com/wp-content/uploads/2023/01/10/akihabara-1-1024x751-1.webp" alt="Calles de Akihabara de noche">
+                    <div class="lugar-card-content">
+                        <h3>Akihabara (Electric Town)</h3>
+                        <p>El epicentro de la cultura otaku. Lleno de tiendas de electrónica, manga, anime y videojuegos, iluminado por innumerables carteles de neón.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="mapa">
+            <h2>Mapa Interactivo</h2>
+            <p style="text-align: center;">Próximamente... un mapa para ubicar todos los destinos.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Descubre Tokyo. Página de demostración.</p>
+    </footer>
+
+
+    <script>
+        
+        // Espera a que todo el contenido del DOM esté cargado
+        document.addEventListener('DOMContentLoaded', function() {
+
+            /* --- Animación de Entrada (Fade-in/Slide-in) --- */
+            
+            // Selecciona los elementos del hero
+            const mainTitle = document.getElementById('main-title');
+            const mainText = document.getElementById('main-text');
+
+            // Agrega la clase 'visible' después de un breve retraso para activar la animación CSS
+            setTimeout(() => {
+                if (mainTitle) {
+                    mainTitle.classList.add('visible');
+                }
+                if (mainText) {
+                    mainText.classList.add('visible');
+                }
+            }, 300); // 300 milisegundos de retraso
+
+
+            /* --- Desplazamiento Suave (Smooth Scroll) para enlaces del Navbar --- */
+            
+            // Selecciona todos los enlaces del navbar
+            const navLinks = document.querySelectorAll('nav a');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Prevenir el comportamiento por defecto del ancla (#)
+                    e.preventDefault(); 
+                    
+                    const targetId = this.getAttribute('href'); // Obtiene el href (ej: "#lugares")
+                    
+                    try {
+                        const targetSection = document.querySelector(targetId);
+                        
+                        if (targetSection) {
+                            // Opción 1: Usar el método nativo (si 'scroll-behavior: smooth' está en el CSS)
+                            targetSection.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+
+                            /* // Opción 2: Cálculo manual (si 'scroll-behavior' no es soportado o se quiere más control)
+                            const headerOffset = document.querySelector('header').offsetHeight;
+                            const elementPosition = targetSection.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                            */
+                        }
+                    } catch (error) {
+                        console.error("Error al intentar desplazar a la sección: ", targetId, error);
+                    }
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>
