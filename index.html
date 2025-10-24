@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Descubre Tokyo — Guía Informativa</title>
+
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!--
+      Estilo principal (todo embebido)
+      Paleta: neón azul + rosa sobre fondo oscuro (estilo urbano/futurista)
+    -->
+    <style>
+        /* Paleta de colores */
+        :root{
+            --bg-dark: #070712;
+            --bg-deep: #0b0f1a;
+            --accent-pink: #ff2fa1;
+            --accent-cyan: #33d6ff;
+            --muted: #9aa7b8;
+            --glass: rgba(255,255,255,0.04);
+            --radius: 12px;
+            --container: 1100px;
+        }
+
+        /* Reset básico */
+        *{box-sizing:border-box}
+        html,body{height:100%;margin:0;font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial;background:
+            radial-gradient(800px 400px at 10% 10%, rgba(51,214,255,0.05), transparent 10%),
+            linear-gradient(180deg,var(--bg-dark), var(--bg-deep)); color:#eaf6ff; -webkit-font-smoothing:antialiased}
+        a{color:inherit;text-decoration:none}
+
+        /* Contenedor central */
+        .container{max-width:var(--container);margin:0 auto;padding:18px}
+
+        /* Navbar */
+        /* Navbar */
+        header{
+            position:sticky;top:0;z-index:40;padding:12px 18px;margin-bottom:18px;
+            background:linear-gradient(90deg, rgba(255,47,161,0.06), rgba(51,214,255,0.04));
+            border-radius:14px;backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.03);
+            transition:box-shadow .25s ease, transform .18s ease;
+        }
+        header.glow{
+            box-shadow:0 10px 40px rgba(51,214,255,0.08), inset 0 0 30px rgba(255,47,161,0.03);
+            transform: translateY(-2px);
+        }
+        .nav-row{display:flex;align-items:center;gap:16px}
+        .brand{display:flex;gap:12px;align-items:center}
+        .brand h1{margin:0;font-weight:700;font-size:1.15rem;color:var(--accent-pink)}
+        .brand .sub{font-size:0.85rem;color:var(--muted)}
+
+        nav{margin-left:auto;display:flex;gap:8px;align-items:center}
+        nav a{
+            display:inline-block;padding:8px 12px;border-radius:10px;font-weight:600;color:var(--muted);
+            transition:all .18s ease;border:1px solid transparent;
+        }
+        /* Hover: cambio de color y ligero brillo */
+        nav a:hover{
+            color:#fff;
+            background:linear-gradient(90deg, rgba(255,47,161,0.12), rgba(51,214,255,0.08));
+            box-shadow:0 6px 20px rgba(51,214,255,0.04);
+            transform:translateY(-4px);
+        }
+
+        /* Hero grande con imagen de Tokyo */
+        .hero{
+            position:relative;border-radius:14px;overflow:hidden;
+            min-height:60vh;display:flex;align-items:center;
+            background-image:
+                linear-gradient(180deg, rgba(7,7,18,0.55), rgba(7,7,18,0.25)),
+                url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1600&q=80');
+            background-size:cover;background-position:center;
+            border:1px solid rgba(255,255,255,0.04);
+        }
+        /* Overlay decorativo neon lines */
+        .hero::after{
+            content:"";position:absolute;inset:0;pointer-events:none;
+            background:
+                radial-gradient(400px 140px at 85% 10%, rgba(255,47,161,0.06), transparent 20%),
+                radial-gradient(500px 220px at 15% 80%, rgba(51,214,255,0.04), transparent 20%);
+        }
+
+        .hero-inner{position:relative;padding:48px;max-width:740px}
+        .kicker{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;
+            background:linear-gradient(90deg,var(--accent-pink),var(--accent-cyan));
+            color:#07101a;font-size:0.85rem;margin-bottom:14px}
+        h2.title{margin:0;font-size:clamp(2rem,4.5vw,3.5rem);line-height:1;letter-spacing:-0.02em;color:white;font-weight:700}
+        p.lead{color:var(--muted);margin-top:12px;font-size:1.05rem;max-width:55ch}
+
+        /* Animaciones de entrada (se controlan vía JS agregando clase .reveal) */
+        .reveal{opacity:0;transform:translateY(16px)}
+        .reveal.show{opacity:1;transform:none;transition:opacity .9s cubic-bezier(.2,.9,.3,1), transform .9s cubic-bezier(.2,.9,.3,1)}
+
+        /* Secciones vacías para trabajar después */
+        section.panel{
+            margin-top:22px;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+            border:1px solid rgba(255,255,255,0.02);
+        }
+        .cols{display:grid;grid-template-columns:1fr 340px;gap:20px}
+        .placeholder{min-height:160px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);border:1px dashed rgba(255,255,255,0.02)}
+
+        /* Pie */
+        footer{margin:34px 0;color:var(--muted);text-align:center;font-size:0.9rem}
+
+        /* Responsive */
+        @media (max-width:900px){
+            .cols{grid-template-columns:1fr}
+            .hero-inner{padding:28px}
+        }
+        @media (max-width:520px){
+            nav{display:none}
+            header{padding:12px}
+            .hero{min-height:54vh}
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="container" id="siteHeader" role="banner">
+        <div class="nav-row">
+            <div class="brand" aria-hidden="false">
+                <div>
+                    <h1>Tokyo</h1>
+                    <div class="sub">Guía rápida</div>
+                </div>
+            </div>
+
+            <!-- Enlaces no navegantes (href="#" para demo) -->
+            <nav aria-label="Navegación principal">
+                <a href="#" data-target="inicio">Inicio</a>
+                <a href="css/historia.css" data-target="historia">Historia</a>
+                <a href="css/gastronimia.css" data-target="galeria">Gastronomía</a>
+                <a href="css/lugares.css" data-target="lugares">Lugares turísticos</a>
+                <a href="css/mapa.css" data-target="mapa">Mapa</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero / Portada -->
+    <main class="container" id="inicio" role="main">
+        <section class="hero" aria-labelledby="heroTitle">
+            <div class="hero-inner">
+                <span class="kicker reveal" id="kicker">Descubre</span>
+                <h2 class="title reveal" id="heroTitle" tabindex="-1">Descubre Tokyo</h2>
+                <p class="lead reveal" id="heroText">Una ciudad donde la tradición se entrelaza con la innovación. Explora barrios vibrantes, saborea la gastronomía local y déjate sorprender por paisajes urbanos que brillan noche tras noche.</p>
+            </div>
+        </section>
+
+        <!-- Secciones vacías listos para editar manualmente -->
+       
+
+        
+
+    
+
+        <footer>
+            <small>&copy; 2025 — Guía de Tokyo (plantilla)</small>
+        </footer>
+    </main>
+
+    <!-- Script (comportamiento) -->
+    <script>
+        // -- Comentarios: animación de entrada y comportamientos de navegación --
+        // Selecciones
+        const reveals = document.querySelectorAll('.reveal');
+        const navLinks = document.querySelectorAll('header nav a');
+        const header = document.getElementById('siteHeader');
+
+        // Entrada: animar elementos con ligeros retrasos
+        window.addEventListener('load', () => {
+            reveals.forEach((el, idx) => {
+                setTimeout(() => el.classList.add('show'), 120 * idx);
+            });
+            // También enfocar título para accesibilidad
+            document.getElementById('heroTitle')?.focus();
+        });
+
+        // Efecto de desplazamiento suave al hacer clic en los enlaces del navbar.
+        // Aunque los enlaces no lleven a secciones reales, navegamos suavemente hacia la parte superior
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                // pequeño "destello" visual del header
+                header.classList.add('glow');
+                setTimeout(()=> header.classList.remove('glow'), 600);
+
+                // Si la sección existe, hacer scroll hacia ella; si no, scroll a inicio
+                const targetId = link.getAttribute('data-target');
+                const targetEl = document.getElementById(targetId);
+                const scrollToEl = targetEl || document.body;
+                scrollToEl.scrollIntoView({behavior:'smooth', block:'start'});
+                // Añadimos una micro-animación al título si se hace clic en Inicio
+                if(targetId === 'inicio'){
+                    const title = document.getElementById('heroTitle');
+                    title.classList.remove('show');
+                    setTimeout(()=> title.classList.add('show'), 50);
+                }
+            });
+        });
+
+        // Hover opcional: brillo suave del header cuando el ratón está encima
+        header.addEventListener('mouseenter', ()=> header.classList.add('glow'));
+        header.addEventListener('mouseleave', ()=> header.classList.remove('glow'));
+
+        // Accesibilidad: permitir saltar al contenido principal (si se añade más tarde)
+        // (Placeholder para agregar atajos de teclado u otros comportamientos)
+    </script>
